@@ -17,7 +17,7 @@ Edupure(edupure.net) 학습창 하나에서 **'다음 페이지 학습' 버튼�
 
 **방법 A. 배포용 ZIP 받기 (권장)**
 
-1. 👉 **[autoplay-edupure-v2.1.0.zip 다운로드](https://github.com/lunaStratos/autoplay-edupure/raw/main/release/autoplay-edupure-v2.1.0.zip)** 를 누릅니다.
+1. 👉 **[Releases 페이지](https://github.com/lunaStratos/autoplay-edupure/releases/latest)** 에서 최신 버전의 `autoplay-edupure-vX.Y.Z.zip` 을 누릅니다. (직접 링크: [autoplay-edupure-v2.1.0.zip](https://github.com/lunaStratos/autoplay-edupure/raw/main/release/autoplay-edupure-v2.1.0.zip))
 2. 내려받은 ZIP의 압축을 풉니다. `manifest.json` 이 들어 있는 `autoplay-edupure` 폴더가 생깁니다. 확장 프로그램 실행에 필요한 파일만 들어 있습니다.
 3. 이 폴더는 **삭제하거나 옮기지 말고** 계속 둬야 합니다. Chrome이 이 폴더에서 직접 확장 프로그램을 읽기 때문입니다. 문서 폴더처럼 안정적인 위치에 두는 것을 권장합니다.
 
@@ -25,7 +25,7 @@ Edupure(edupure.net) 학습창 하나에서 **'다음 페이지 학습' 버튼�
 
 1. GitHub 저장소 페이지 https://github.com/lunaStratos/autoplay-edupure 를 엽니다.
 2. 초록색 **Code** 버튼 → **Download ZIP** 을 누릅니다.
-3. 내려받은 `autoplay-edupure-main.zip` 의 압축을 풉니다. `manifest.json` 이 들어 있는 폴더(`autoplay-edupure-main`)가 생깁니다. README와 스크린샷 등이 함께 들어 있지만 Chrome은 이를 무시하므로 그대로 써도 됩니다.
+3. 내려받은 `autoplay-edupure-main.zip` 의 압축을 풉니다. 확장 프로그램 파일은 그 안의 **`src` 폴더**에 있으므로, Chrome에 로드할 때는 `src` 폴더를 선택합니다.
 
 **방법 C. git clone**
 
@@ -170,13 +170,36 @@ git clone https://github.com/lunaStratos/autoplay-edupure.git
 
 ## 7. 파일 구성
 
+```
+autoplay-edupure/
+├── src/            확장 프로그램 소스 (개발용, Chrome에 직접 로드 가능)
+│   ├── manifest.json
+│   ├── background.js
+│   ├── content.js
+│   ├── popup.html
+│   └── popup.js
+├── release/        배포용 ZIP (사용자는 이것만 받으면 됨)
+├── build.sh        src/ 를 묶어 release/ ZIP을 만드는 스크립트
+├── image.png       팝업 스크린샷
+└── README.md
+```
+
 | 파일 | 역할 |
 |------|------|
-| `manifest.json` | 확장 프로그램 정보, 권한, 실행 대상 도메인 |
-| `background.js` | 서비스 워커. 자동 클릭이 켜져 있으면 툴바 아이콘에 **ON** 배지를 표시 |
-| `popup.html` / `popup.js` | 툴바 아이콘 클릭 시 열리는 설정 팝업. 옵션 저장, 통계 표시, 페이지 진단 |
-| `content.js` | 학습창과 콘텐츠 iframe에 주입되는 핵심 로직. 버튼 탐지·클릭, 영상 재생, 자동재생 권한 위임, 알림창 처리 |
+| `src/manifest.json` | 확장 프로그램 정보, 권한, 실행 대상 도메인 |
+| `src/background.js` | 서비스 워커. 자동 클릭이 켜져 있으면 툴바 아이콘에 **ON** 배지를 표시 |
+| `src/popup.html` / `src/popup.js` | 툴바 아이콘 클릭 시 열리는 설정 팝업. 옵션 저장, 통계 표시, 페이지 진단 |
+| `src/content.js` | 학습창과 콘텐츠 iframe에 주입되는 핵심 로직. 버튼 탐지·클릭, 영상 재생, 자동재생 권한 위임, 알림창 처리 |
 | `release/` | 배포용 ZIP. 확장 프로그램 실행에 필요한 파일만 묶어 둔 것으로, 사용자는 이 ZIP만 받으면 됩니다 |
+| `build.sh` | `src/manifest.json` 의 버전을 읽어 `release/autoplay-edupure-v<버전>.zip` 을 다시 만듭니다 |
+
+### 개발 및 배포
+
+```bash
+# 개발: chrome://extensions 에서 src/ 폴더를 "압축해제된 확장 프로그램 로드"로 지정
+# 배포: 버전을 올린 뒤 ZIP을 다시 만들고 GitHub Release에 첨부
+./build.sh
+```
 
 ### 사용 권한
 
@@ -194,4 +217,4 @@ git clone https://github.com/lunaStratos/autoplay-edupure.git
 - 이 도구는 영상 시청 중 **반복적으로 '다음' 버튼과 재생 버튼을 누르는 작업만** 대신합니다. 학습 내용 이해, 시험·과제 응시는 대신하지 않습니다.
 - **배속 재생, 영상 건너뛰기, 시청 시간·진도율 조작, 서버 요청 변조 등은 일절 하지 않습니다.** 영상은 플레이어가 정한 속도로 끝까지 재생되고, 다음 페이지로 넘어가는 것도 사이트가 버튼을 보여 준 뒤에만 이루어집니다. 즉 사용자가 손으로 눌렀을 때와 동일한 동작만 자동화합니다.
 - 소속 기관의 학습 규정상 자동화 도구 사용이 제한될 수 있습니다. 사용 전 규정을 확인하세요.
-- Edupure 페이지 구조가 바뀌면 버튼을 찾지 못할 수 있습니다. 이때는 **현재 페이지 진단** 결과의 `matches` 항목을 참고해 `content.js` 의 `findButton()` 을 수정하세요.
+- Edupure 페이지 구조가 바뀌면 버튼을 찾지 못할 수 있습니다. 이때는 **현재 페이지 진단** 결과의 `matches` 항목을 참고해 `src/content.js` 의 `findButton()` 을 수정하세요.
