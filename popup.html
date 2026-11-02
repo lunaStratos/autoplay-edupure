@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { width: 320px; margin: 0; padding: 14px; font: 13px/1.5 -apple-system, "Apple SD Gothic Neo", sans-serif; color: #222; }
+    h1 { font-size: 14px; margin: 0 0 10px; }
+    label { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+    .main { font-weight: 600; font-size: 14px; }
+    input[type="number"] { width: 52px; }
+    .hint { color: #777; font-size: 11px; margin: -4px 0 6px 24px; }
+    .stats { white-space: pre-line; margin: 10px 0; padding: 8px; background: #f4f4f4; border-radius: 6px; }
+    button { padding: 4px 10px; }
+    textarea { width: 100%; height: 160px; box-sizing: border-box; margin-top: 6px; font: 11px monospace; display: none; }
+  </style>
+</head>
+<body>
+  <h1>Edupure 자동 학습 (단일 창)</h1>
+
+  <label class="main"><input type="checkbox" id="enabled"> 자동 클릭 켜기</label>
+  <label>버튼이 보인 뒤 <input type="number" id="delaySec" min="0" max="60" step="1"> 초 후 클릭</label>
+  <label><input type="checkbox" id="autoPlay"> 새 페이지 영상 자동 재생</label>
+  <div class="hint">콘텐츠 프레임에 자동재생 권한을 넘겨 주고 재생 버튼을 누릅니다.</div>
+  <label><input type="checkbox" id="muteAlways"> 재생 시 음소거</label>
+  <label><input type="checkbox" id="muteFallback"> 재생이 막히면 음소거 후 재생</label>
+
+  <div class="stats" id="stats"></div>
+
+  <button id="diagnose">현재 페이지 진단</button>
+  <button id="copy" style="display:none">복사</button>
+  <button id="reset">횟수 초기화</button>
+  <textarea id="out" readonly></textarea>
+
+  <script src="popup.js"></script>
+</body>
+</html>

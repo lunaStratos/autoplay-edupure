@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Edupure 다음 페이지 자동 학습 (단일 창)",
+  "version": "2.1.0",
+  "description": "학습창 하나에서 '다음 페이지 학습'을 자동으로 누르고, 새 페이지 영상을 자동으로 재생합니다.",
+  "permissions": ["storage", "scripting", "webNavigation"],
+  "host_permissions": ["*://*.edupure.net/*", "*://*.edge.naverncp.com/*"],
+  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_title": "Edupure 자동 학습 (단일 창)",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.edupure.net/*", "*://*.edge.naverncp.com/*"],
+      "js": ["content.js"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_idle"
+    }
+  ]
+}
