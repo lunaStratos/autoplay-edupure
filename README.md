@@ -15,12 +15,19 @@ Edupure(edupure.net) 학습창 하나에서 **'다음 페이지 학습' 버튼�
 
 ### 1-1. 다운로드
 
+**방법 A. 배포용 ZIP 받기 (권장)**
+
+1. 👉 **[autoplay-edupure-v2.1.0.zip 다운로드](https://github.com/lunaStratos/autoplay-edupure/raw/main/release/autoplay-edupure-v2.1.0.zip)** 를 누릅니다.
+2. 내려받은 ZIP의 압축을 풉니다. `manifest.json` 이 들어 있는 `autoplay-edupure` 폴더가 생깁니다. 확장 프로그램 실행에 필요한 파일만 들어 있습니다.
+3. 이 폴더는 **삭제하거나 옮기지 말고** 계속 둬야 합니다. Chrome이 이 폴더에서 직접 확장 프로그램을 읽기 때문입니다. 문서 폴더처럼 안정적인 위치에 두는 것을 권장합니다.
+
+**방법 B. 저장소 전체 받기**
+
 1. GitHub 저장소 페이지 https://github.com/lunaStratos/autoplay-edupure 를 엽니다.
 2. 초록색 **Code** 버튼 → **Download ZIP** 을 누릅니다.
-3. 내려받은 `autoplay-edupure-main.zip` 의 압축을 풉니다. `manifest.json` 이 들어 있는 폴더(`autoplay-edupure-main`)가 생깁니다.
-4. 이 폴더는 **삭제하거나 옮기지 말고** 계속 둬야 합니다. Chrome이 이 폴더에서 직접 확장 프로그램을 읽기 때문입니다. 문서 폴더처럼 안정적인 위치에 두는 것을 권장합니다.
+3. 내려받은 `autoplay-edupure-main.zip` 의 압축을 풉니다. `manifest.json` 이 들어 있는 폴더(`autoplay-edupure-main`)가 생깁니다. README와 스크린샷 등이 함께 들어 있지만 Chrome은 이를 무시하므로 그대로 써도 됩니다.
 
-git을 쓸 줄 안다면 다음 명령으로 받아도 됩니다.
+**방법 C. git clone**
 
 ```bash
 git clone https://github.com/lunaStratos/autoplay-edupure.git
@@ -169,6 +176,7 @@ git clone https://github.com/lunaStratos/autoplay-edupure.git
 | `background.js` | 서비스 워커. 자동 클릭이 켜져 있으면 툴바 아이콘에 **ON** 배지를 표시 |
 | `popup.html` / `popup.js` | 툴바 아이콘 클릭 시 열리는 설정 팝업. 옵션 저장, 통계 표시, 페이지 진단 |
 | `content.js` | 학습창과 콘텐츠 iframe에 주입되는 핵심 로직. 버튼 탐지·클릭, 영상 재생, 자동재생 권한 위임, 알림창 처리 |
+| `release/` | 배포용 ZIP. 확장 프로그램 실행에 필요한 파일만 묶어 둔 것으로, 사용자는 이 ZIP만 받으면 됩니다 |
 
 ### 사용 권한
 
